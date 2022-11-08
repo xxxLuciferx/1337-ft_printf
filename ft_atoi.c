@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_hex_up.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khaimer <khaimer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 17:48:04 by khaimer           #+#    #+#             */
-/*   Updated: 2022/10/30 20:43:23 by khaimer          ###   ########.fr       */
+/*   Created: 2022/10/12 01:48:01 by khaimer           #+#    #+#             */
+/*   Updated: 2022/10/31 22:49:24 by khaimer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	my_hex_up(unsigned int i, int fd, int *counter)
+int	ft_atoi(const char *str)
 {
-	char *s;
+	int	a;
+	int	sign;
+	int	res;
+
+	res = 0;
+	a = 0;
+	sign = 1;
+	while (str[a] <= '9' && str[a] >= '0')
+	{
+		res = str[a] - '0' + (res * 10);
+		a++;
+	}
+	return (res * sign);
+}
+int main()
+{
+	int *s;
+	s = 54354354357;
+	printf("%d",ft_atoi(s));
 	
-	s = "0123456789ABCDEF";
-	if (i >= 0 && i < 16)
-	{
-		my_putchar(s[i], fd, counter);
-	}
-	if(i > 16)
-	{
-		my_hex_low((i / 16), 1, counter);
-		my_hex_low((i % 16), 1, counter);
-	}
 }

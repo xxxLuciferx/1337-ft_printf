@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khaimer <khaimer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/29 23:27:15 by khaimer           #+#    #+#             */
-/*   Updated: 2022/10/30 03:32:01 by khaimer          ###   ########.fr       */
+/*   Created: 2022/10/25 22:42:19 by khaimer           #+#    #+#             */
+/*   Updated: 2022/10/26 22:30:17 by khaimer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	my_putnbr(int n, int fd, int *counter)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	if (n == -2147483648)
-	{
-		write(fd, "-2147483648", 11);
-		*counter += 11; 
+	if (!lst || !del)
 		return ;
-	}
-	if (n < 0)
-	{
-		my_putchar('-', fd, counter);
-		n = -n;
-	}
-	if (n >= 0 && n <= 9)
-		my_putchar((n + '0'), fd, counter);
-	if (n >= 10)
-	{
-		my_putnbr(n / 10, fd, counter);
-		my_putnbr(n % 10, fd, counter);
-	}
+	(*del)(lst->content);
+	free(lst);
 }

@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_adress.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khaimer <khaimer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 16:55:38 by khaimer           #+#    #+#             */
-/*   Updated: 2022/10/30 20:36:42 by khaimer          ###   ########.fr       */
+/*   Created: 2022/10/10 01:35:49 by khaimer           #+#    #+#             */
+/*   Updated: 2022/10/27 17:47:44 by khaimer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	my_hex_lo(unsigned long i,int fd, int *counter)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	char *s;
-	
-	s = "0123456789abcdef";
-	if (i >= 0 && i < 16)
-	{
-		my_putchar(s[i], fd, counter);
-	}
-	else
-	{
-		my_hex_lo((i / 16),fd, counter);
-		my_hex_lo((i % 16),fd, counter);
-	}
-	
-}
+	size_t	i;
+	size_t	j;
 
-void	my_adress(unsigned long i, int fd, int *counter)
-{
-	write(fd, "0x", 2);
-	counter += 2;
-	my_hex_lo(i, fd, counter);
-	
+	i = 0;
+	j = 0;
+	if (!*needle)
+		return ((char *)haystack);
+	while (i < len && haystack[i])
+	{
+		j = 0;
+		while (haystack[i + j] == needle[j] && needle[j] && i + j < len)
+			j++;
+		if (needle[j] == '\0')
+			return ((char *)&haystack[i]);
+		i++;
+	}
+	return (0);
 }

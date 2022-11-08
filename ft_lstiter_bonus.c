@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_unsigned_int.c                                  :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khaimer <khaimer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 14:39:11 by khaimer           #+#    #+#             */
-/*   Updated: 2022/10/30 14:44:27 by khaimer          ###   ########.fr       */
+/*   Created: 2022/10/26 18:32:14 by khaimer           #+#    #+#             */
+/*   Updated: 2022/10/26 22:30:27 by khaimer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	my_unsigned_int(unsigned int n, int fd, int *counter)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (n >= 0 && n <= 9)
-		my_putchar((n + '0'), fd, counter);
-	if (n >= 10)
+	while (lst)
 	{
-		my_unsigned_int(n / 10, fd, counter);
-		my_unsigned_int(n % 10, fd, counter);
+		(*f)(lst -> content);
+		lst = lst -> next;
 	}
 }

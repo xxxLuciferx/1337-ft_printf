@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khaimer <khaimer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 01:22:35 by khaimer           #+#    #+#             */
-/*   Updated: 2022/10/30 20:26:03 by khaimer          ###   ########.fr       */
+/*   Created: 2022/10/26 18:48:10 by khaimer           #+#    #+#             */
+/*   Updated: 2022/10/27 18:41:15 by khaimer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	my_putstr(char *s, int fd, int *counter)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	int	i;
+	t_list	*result;
+	t_list	*ptr;
 
-	i = 0;
-	if(s == NULL)
+	result = NULL;
+	while (lst && f)
 	{
-		write(fd, "(null)", 6);
-		*counter += 6;
-		return ;
+		ptr = ft_lstnew(f(lst->content));
+		ft_lstadd_back(&result, ptr);
+		lst = lst->next;
 	}
-	while (s[i] != '\0')
-	{
-		write(fd, &s[i], 1);
-		i++;
-		*counter += 1;
-	}
+	(void)del;
+	return (result);
 }

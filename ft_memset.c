@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khaimer <khaimer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/29 23:04:32 by khaimer           #+#    #+#             */
-/*   Updated: 2022/10/30 16:42:35 by khaimer          ###   ########.fr       */
+/*   Created: 2022/10/08 13:36:25 by khaimer           #+#    #+#             */
+/*   Updated: 2022/10/20 00:58:43 by khaimer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	my_putchar(char c, int fd, int *counter)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	write(fd, &c, 1);
-	*counter += 1;
+	size_t	i;
+	char	*s;
+
+	i = 0;
+	s = b;
+	while (i < len)
+	{
+		s[i] = c;
+		i++;
+	}
+	return (s);
 }
