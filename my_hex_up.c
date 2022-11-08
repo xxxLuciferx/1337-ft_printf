@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   my_hex_up.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khaimer <khaimer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 01:35:49 by khaimer           #+#    #+#             */
-/*   Updated: 2022/10/27 17:47:44 by khaimer          ###   ########.fr       */
+/*   Created: 2022/10/30 17:48:04 by khaimer           #+#    #+#             */
+/*   Updated: 2022/10/31 20:01:43 by khaimer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+void	my_hex_up(unsigned int i, int fd, int *counter)
 {
-	size_t	i;
-	size_t	j;
+	char	*s;
 
-	i = 0;
-	j = 0;
-	if (!*needle)
-		return ((char *)haystack);
-	while (i < len && haystack[i])
+	s = "0123456789ABCDEF";
+	if (i >= 0 && i < 16)
 	{
-		j = 0;
-		while (haystack[i + j] == needle[j] && needle[j] && i + j < len)
-			j++;
-		if (needle[j] == '\0')
-			return ((char *)&haystack[i]);
-		i++;
+		my_putchar(s[i], fd, counter);
 	}
-	return (0);
+	if (i >= 16)
+	{
+		my_hex_up((i / 16), 1, counter);
+		my_hex_up((i % 16), 1, counter);
+	}
 }

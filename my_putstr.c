@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   my_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khaimer <khaimer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 01:48:01 by khaimer           #+#    #+#             */
-/*   Updated: 2022/10/31 22:49:24 by khaimer          ###   ########.fr       */
+/*   Created: 2022/10/30 01:22:35 by khaimer           #+#    #+#             */
+/*   Updated: 2022/10/31 22:58:41 by khaimer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_atoi(const char *str)
+void	my_putstr(char *s, int fd, int *counter)
 {
-	int	a;
-	int	sign;
-	int	res;
+	int	i;
 
-	res = 0;
-	a = 0;
-	sign = 1;
-	while (str[a] <= '9' && str[a] >= '0')
+	i = 0;
+	if (s == NULL)
 	{
-		res = str[a] - '0' + (res * 10);
-		a++;
+		write(fd, "(null)", 6);
+		*counter += 6;
+		return ;
 	}
-	return (res * sign);
-}
-int main()
-{
-	int *s;
-	s = 54354354357;
-	printf("%d",ft_atoi(s));
-	
+	while (s[i] != '\0')
+	{
+		write(fd, &s[i], 1);
+		i++;
+		*counter += 1;
+	}
 }

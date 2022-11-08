@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   my_adress.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khaimer <khaimer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 16:06:09 by khaimer           #+#    #+#             */
-/*   Updated: 2022/10/08 17:05:04 by khaimer          ###   ########.fr       */
+/*   Created: 2022/10/30 16:55:38 by khaimer           #+#    #+#             */
+/*   Updated: 2022/10/31 20:00:28 by khaimer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+static	void	my_hex_lo(unsigned long i, int fd, int *counter)
 {
-	size_t	i;
+	char	*s;
 
-	i = 0;
-	while (i < n && ((unsigned char *)s1)[i] != '\0' \
-	&& ((unsigned char *)s2)[i] != '\0')
+	s = "0123456789abcdef";
+	if (i >= 0 && i < 16)
 	{
-		if (((unsigned char *)s1)[i] != ((unsigned char *)s2)[i])
-			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
-		i++;
+		my_putchar(s[i], fd, counter);
 	}
-	if (i != n)
-		return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
-	return (0);
+	if (i >= 16)
+	{
+		my_hex_lo((i / 16), fd, counter);
+		my_hex_lo((i % 16), fd, counter);
+	}
+}
+
+void	my_adress(unsigned long i, int fd, int *counter)
+{
+	write(fd, "0x", 2);
+	*counter += 2;
+	my_hex_lo(i, fd, counter);
 }

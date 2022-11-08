@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
+/*   my_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khaimer <khaimer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 18:48:10 by khaimer           #+#    #+#             */
-/*   Updated: 2022/10/27 18:41:15 by khaimer          ###   ########.fr       */
+/*   Created: 2022/10/29 23:27:15 by khaimer           #+#    #+#             */
+/*   Updated: 2022/11/01 13:07:15 by khaimer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void	my_putnbr(int n, int fd, int *counter)
 {
-	t_list	*result;
-	t_list	*ptr;
-
-	result = NULL;
-	while (lst && f)
+	if (n == -2147483648)
 	{
-		ptr = ft_lstnew(f(lst->content));
-		ft_lstadd_back(&result, ptr);
-		lst = lst->next;
+		write(fd, "-2147483648", 11);
+		*counter += 11;
+		return ;
 	}
-	(void)del;
-	return (result);
+	if (n < 0)
+	{
+		my_putchar('-', fd, counter);
+		n = -n;
+	}
+	if (n >= 0 && n <= 9)
+		my_putchar((n + '0'), fd, counter);
+	if (n >= 10)
+	{
+		my_putnbr(n / 10, fd, counter);
+		my_putnbr(n % 10, fd, counter);
+	}
 }
